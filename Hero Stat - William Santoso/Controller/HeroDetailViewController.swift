@@ -43,15 +43,15 @@ class HeroDetailViewController: UIViewController {
         armorLabel.text = "\(hero.baseArmor)"
         speedLabel.text = "\(hero.moveSpeed)"
         manaLabel.text = "\(hero.baseMana)"
-        typeLabel.text = "\(hero.primaryAttr.rawValue)"
+        typeLabel.text = "\(hero.primaryAttr)"
         
         var tempRole = ""
         for role in hero.roles {
-            tempRole += "\(role.rawValue), "
+            tempRole += "\(role), "
         }
         roleLabel.text = String(tempRole.dropLast(2))
         
-        typeImageView.image = UIImage(named: "type-\(hero.primaryAttr.rawValue)")
+        typeImageView.image = UIImage(named: "type-\(hero.primaryAttr)")
         
         if let similarHeroes = similarHeroes {
             if similarHeroes.count >= 3 {

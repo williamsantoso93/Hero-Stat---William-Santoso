@@ -6,32 +6,22 @@
 //
 
 import Foundation
+import RealmSwift
 
-/*
- "base_attack_min": 23,
- "base_attack_max": 25,
- 
- "base_health": 200,
- 
- "base_armor": -1,
- 
- "base_mana": 75,
- 
- "move_speed": 290,
- */
 // MARK: - Hero
 struct Hero: Codable {
-    var id: Int
-    var localizedName: String
-    var primaryAttr: PrimaryAttr
-    var roles: [Role]
-    var img: String
-    var baseHealth: Int
-    var baseMana: Int
-    var baseArmor: Double
-    var baseAttackMin, baseAttackMax: Int
-    var moveSpeed: Int
-    var imageData: Data?
+    var id: Int = Int()
+    var localizedName: String = String()
+    var primaryAttr: String = String()
+    var roles: [String] = [String]()
+    var img: String = String()
+    var baseHealth: Int = Int()
+    var baseMana: Int = Int()
+    var baseArmor: Double = Double()
+    var baseAttackMin: Int = Int()
+    var baseAttackMax: Int = Int()
+    var moveSpeed: Int = Int()
+    var imageData: Data? = Data()
     var isImageLoaded: Bool = false
 
     enum CodingKeys: String, CodingKey {
@@ -46,12 +36,6 @@ struct Hero: Codable {
         case baseAttackMax = "base_attack_max"
         case moveSpeed = "move_speed"
     }
-}
-
-enum PrimaryAttr: String, Codable {
-    case agi = "agi"
-    case int = "int"
-    case str = "str"
 }
 
 enum Role: String, Codable, CaseIterable {

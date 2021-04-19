@@ -6,24 +6,25 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ViewController: UIViewController {
 
     @IBOutlet weak var roleCollectionView: UICollectionView!
-    @IBOutlet weak var heroCollectionView:
-        UICollectionView!
+    @IBOutlet weak var heroCollectionView: UICollectionView!
     
     //MARK: - variabel
     var heroes: [Hero]?
     var filteredHeroes: [Hero]?
     var similarHeroes: [Hero]?
-    var heroImageData = [Data]()
-    var filteredHeroImageData = [Data]()
     var selectedHero:Hero?
     let roleList = Role.list
     var heroesString = ""
     
     var isLoading = false
+    
+    let realm: Realm = try! Realm()
+    var realmHero: Results<HeroData>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +47,53 @@ class ViewController: UIViewController {
     
     @IBAction func refreshAction(_ sender: Any) {
         load()
+        
+    }
+    
+    @IBAction func deleteAction(_ sender: Any) {
+        heroes?.removeAll()
+        filteredHeroes?.removeAll()
+        heroCollectionView.reloadData()
+    }
+    @IBAction func loadAction(_ sender: Any) {
+//        let heroesData = realm.objects([Hero].self)
+//        heroCollectionView.re
+        let heroesData = realm.objects(HeroData.self)
+        
+        heroes?.removeAll()
+        filteredHeroes?.removeAll()
+//        guard let heroes = heroes else { return }
+        
+        for heroData in heroesData {
+            var hero = Hero()
+            
+            hero.id = heroData.id
+            hero.localizedName = heroData.localizedName
+            hero.primaryAttr = heroData.primaryAttr
+            hero.img = heroData.img
+            for role in heroData.roles {
+                hero.roles.append(role)
+            }
+            hero.baseHealth = heroData.baseHealth
+            hero.baseMana = heroData.baseMana
+            hero.baseAttackMin = heroData.baseAttackMin
+            hero.baseAttackMax = heroData.baseAttackMax
+            hero.moveSpeed = heroData.moveSpeed
+            hero.moveSpeed = heroData.moveSpeed
+            hero.imageData = heroData.imageData
+            hero.isImageLoaded = heroData.isImageLoaded
+            
+            heroes?.append(hero)
+        }
+        
+        filteredHeroes = heroes
+        heroCollectionView.reloadData()
+    }
+    
+    @IBAction func saveAction(_ sender: Any) {
+        print("start save")
+        guard let heroes = heroes else { return }
+        saveToRealm(heroes: heroes)
     }
     
     func showAlert(title: String, message: String?) {
@@ -55,9 +103,37 @@ class ViewController: UIViewController {
     }
     
     func saveHeroes(heroes: [Hero]) {
-        let jsonData = try! JSONEncoder().encode(heroes)
-        let jsonString = String(data: jsonData, encoding: .utf8)
-        print(jsonString)
+//        let jsonData = try! JSONEncoder().encode(heroes)
+//        let jsonString = String(data: jsonData, encoding: .utf8)
+//        print(jsonString)
+    }
+    
+    func saveToRealm(heroes: [Hero]) {
+        for hero in heroes {
+            let heroData = HeroData()
+            heroData.id = hero.id
+            heroData.localizedName = hero.localizedName
+            heroData.primaryAttr = hero.primaryAttr
+            heroData.img = hero.img
+            for role in hero.roles {
+                heroData.roles.append(role)
+            }
+            heroData.baseHealth = hero.baseHealth
+            heroData.baseMana = hero.baseMana
+            heroData.baseAttackMin = hero.baseAttackMin
+            heroData.baseAttackMax = hero.baseAttackMax
+            heroData.moveSpeed = hero.moveSpeed
+            heroData.moveSpeed = hero.moveSpeed
+            heroData.imageData = hero.imageData ?? Data()
+            heroData.isImageLoaded = hero.isImageLoaded
+            do {
+                try realm.write {
+                    realm.add(heroData)
+                }
+            } catch {
+                print("error save context : \(error)")
+            }
+        }
     }
     
     //MARK: - load data
@@ -68,20 +144,21 @@ class ViewController: UIViewController {
                 switch result {
                 case .success(let data) :
                     self.heroes = data
-                    self.heroImageData.removeAll()
                     
-                    for i in 0 ..< (self.heroes?.count ?? 0) {
-                        let imageURL = "https://api.opendota.com\(self.heroes?[i].img ?? "")"
-                        self.getImageData(urlString: imageURL) { (data) in
-                            self.heroes?[i].imageData = data
-                            self.heroes?[i].isImageLoaded = true
-                            
-                            self.filteredHeroes = self.heroes
+                    if !(self.heroes?.isEmpty ?? true) {
+                        for i in 0 ..< (self.heroes?.count ?? 0) {
+                            let imageURL = "https://api.opendota.com\(self.heroes?[i].img ?? "")"
+                            self.getImageData(urlString: imageURL) { (data) in
+                                self.heroes?[i].imageData = data
+                                self.heroes?[i].isImageLoaded = true
+                                
+                                self.filteredHeroes = self.heroes
+                                
+                                DispatchQueue.main.async {
+                                    self.heroCollectionView.reloadData()
+                                }
+                            }
                         }
-                    }
-                    
-                    DispatchQueue.main.async {
-                        self.heroCollectionView.reloadData()
                     }
                     
 //                    self.isLoading = false
@@ -89,7 +166,7 @@ class ViewController: UIViewController {
                 case .failure(let error) :
                     switch error {
                     case .badUrl:
-                        print(1)
+                        break
                     case .decodingError:
                         self.showAlert(title: "Error", message: "cannot fetch data.")
                     case .noData:
@@ -114,7 +191,7 @@ class ViewController: UIViewController {
     }
     
     //MARK: - filter hero by role
-    func getfilterHeroes(by role: Role) -> [Hero]? {
+    func getfilterHeroes(by role: String) -> [Hero]? {
         var tempHeroes = [Hero]()
         if let heroes = heroes {
             for hero in heroes {
@@ -129,7 +206,7 @@ class ViewController: UIViewController {
         return nil
     }
     
-    func isMatchRole(_ hero: Hero, with role: Role) -> Bool {
+    func isMatchRole(_ hero: Hero, with role: String) -> Bool {
         for heroRole in hero.roles {
             if heroRole == role {
                 return true
@@ -140,7 +217,7 @@ class ViewController: UIViewController {
     }
     
     //MARK: - similar hero by attribute
-    func getfilterHeroes(by attr: PrimaryAttr) -> [Hero]? {
+    func getfilterHeroes(attr: String) -> [Hero]? {
         var tempHeroes = [Hero]()
         if let heroes = heroes {
             for hero in heroes {
@@ -157,14 +234,16 @@ class ViewController: UIViewController {
     }
     
     func getThreeHighestHeroes(from hero: Hero) -> [Hero]? {
-        if var filteredHeroesByAttr = getfilterHeroes(by: hero.primaryAttr) {
+        if var filteredHeroesByAttr = getfilterHeroes(attr: hero.primaryAttr) {
             switch hero.primaryAttr {
-            case .agi:
+            case "agi":
                 filteredHeroesByAttr.sort{$0.moveSpeed > $1.moveSpeed}
-            case .int:
+            case "int":
                 filteredHeroesByAttr.sort(by: {$0.baseMana > $1.baseMana})
-            case .str:
+            case "str":
                 filteredHeroesByAttr.sort(by: {$0.baseAttackMax > $1.baseAttackMax})
+            default:
+                break
             }
             var tempHero = [Hero]()
             
@@ -239,7 +318,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
                 if roleList[indexPath.row] == "All" {
                     filteredHeroes = heroes
                 } else {
-                    let selectedRole = Role(rawValue: roleList[indexPath.row]) ?? .carry
+                    let selectedRole = roleList[indexPath.row]
                     filteredHeroes = getfilterHeroes(by: selectedRole)
                 }
 //                DispatchQueue.main.async {

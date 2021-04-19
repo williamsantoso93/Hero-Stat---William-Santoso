@@ -65,11 +65,43 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="All" id="hw8-2g-Yea">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="refresh" id="0Os-rx-JEa">
-                            <connections>
-                                <action selector="refreshAction:" destination="BYZ-38-t0r" id="Y2W-fK-Vz4"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem style="plain" systemItem="refresh" id="0Os-rx-JEa">
+                                <connections>
+                                    <action selector="refreshAction:" destination="BYZ-38-t0r" id="Y2W-fK-Vz4"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="DpR-f8-eal">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="f67-Uf-B0F">
+                                    <rect key="frame" x="620.33333333333326" y="7" width="205" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="delete"/>
+                                    <connections>
+                                        <action selector="deleteAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pa9-Q5-usQ"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="iF6-c7-GBb">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="mUu-K0-GlW">
+                                    <rect key="frame" x="407.33333333333331" y="7" width="204.99999999999994" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="save"/>
+                                    <connections>
+                                        <action selector="saveAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="d2d-3k-M0j"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="OqO-N0-Iy4">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="aZj-uD-Dma">
+                                    <rect key="frame" x="194.33333333333331" y="7" width="205" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="load"/>
+                                    <connections>
+                                        <action selector="loadAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yya-HK-NCh"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="heroCollectionView" destination="GUK-HK-gBj" id="wiS-23-OOo"/>

@@ -3,12 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		7A67A96A262C9BE20021BF48 /* HeroDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A67A969262C9BE20021BF48 /* HeroDetailViewController.swift */; };
-		7ADA92AF262D78AD00C2341B /* HeroStat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7ADA92AD262D78AD00C2341B /* HeroStat.xcdatamodeld */; };
+		7ADA92DC262D835A00C2341B /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 7ADA92DB262D835A00C2341B /* Realm */; };
+		7ADA92DE262D835A00C2341B /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7ADA92DD262D835A00C2341B /* RealmSwift */; };
+		7ADA92E1262D83A200C2341B /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADA92E0262D83A200C2341B /* RealmModel.swift */; };
 		7AE204FC262C829C0002B233 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE204FB262C829C0002B233 /* AppDelegate.swift */; };
 		7AE204FE262C829C0002B233 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE204FD262C829C0002B233 /* SceneDelegate.swift */; };
 		7AE20500262C829C0002B233 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE204FF262C829C0002B233 /* ViewController.swift */; };
@@ -26,7 +28,7 @@
 
 /* Begin PBXFileReference section */
 		7A67A969262C9BE20021BF48 /* HeroDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailViewController.swift; sourceTree = "<group>"; };
-		7ADA92AE262D78AD00C2341B /* HeroStat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HeroStat.xcdatamodel; sourceTree = "<group>"; };
+		7ADA92E0262D83A200C2341B /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		7AE204F8262C829C0002B233 /* Hero Stat - William Santoso.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hero Stat - William Santoso.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AE204FB262C829C0002B233 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AE204FD262C829C0002B233 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +51,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7ADA92DE262D835A00C2341B /* RealmSwift in Frameworks */,
+				7ADA92DC262D835A00C2341B /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,7 +113,6 @@
 				7A67A967262C9BBE0021BF48 /* Controller */,
 				7AE20504262C829E0002B233 /* Assets.xcassets */,
 				7AE20506262C829E0002B233 /* LaunchScreen.storyboard */,
-				7ADA92AD262D78AD00C2341B /* HeroStat.xcdatamodeld */,
 				7AE20509262C829E0002B233 /* Info.plist */,
 			);
 			path = "Hero Stat - William Santoso";
@@ -129,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				7AE20517262C83F50002B233 /* Model.swift */,
+				7ADA92E0262D83A200C2341B /* RealmModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -158,6 +162,10 @@
 			dependencies = (
 			);
 			name = "Hero Stat - William Santoso";
+			packageProductDependencies = (
+				7ADA92DB262D835A00C2341B /* Realm */,
+				7ADA92DD262D835A00C2341B /* RealmSwift */,
+			);
 			productName = "Hero Stat - William Santoso";
 			productReference = 7AE204F8262C829C0002B233 /* Hero Stat - William Santoso.app */;
 			productType = "com.apple.product-type.application";
@@ -185,6 +193,9 @@
 				Base,
 			);
 			mainGroup = 7AE204EF262C829C0002B233;
+			packageReferences = (
+				7ADA92DA262D835A00C2341B /* XCRemoteSwiftPackageReference "realm-cocoa" */,
+			);
 			productRefGroup = 7AE204F9262C829C0002B233 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -217,7 +228,7 @@
 				7AE20518262C83F50002B233 /* Model.swift in Sources */,
 				7AE20500262C829C0002B233 /* ViewController.swift in Sources */,
 				7AE204FC262C829C0002B233 /* AppDelegate.swift in Sources */,
-				7ADA92AF262D78AD00C2341B /* HeroStat.xcdatamodeld in Sources */,
+				7ADA92E1262D83A200C2341B /* RealmModel.swift in Sources */,
 				7AE2051B262C87560002B233 /* Extension.swift in Sources */,
 				7A67A96A262C9BE20021BF48 /* HeroDetailViewController.swift in Sources */,
 				7AE20528262C8FBF0002B233 /* HeroCardCollectionViewCell.swift in Sources */,
@@ -426,18 +437,29 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCVersionGroup section */
-		7ADA92AD262D78AD00C2341B /* HeroStat.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				7ADA92AE262D78AD00C2341B /* HeroStat.xcdatamodel */,
-			);
-			currentVersion = 7ADA92AE262D78AD00C2341B /* HeroStat.xcdatamodel */;
-			path = HeroStat.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
+/* Begin XCRemoteSwiftPackageReference section */
+		7ADA92DA262D835A00C2341B /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-cocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.7.2;
+			};
 		};
-/* End XCVersionGroup section */
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7ADA92DB262D835A00C2341B /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7ADA92DA262D835A00C2341B /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = Realm;
+		};
+		7ADA92DD262D835A00C2341B /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7ADA92DA262D835A00C2341B /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7AE204F0262C829C0002B233 /* Project object */;
 }
