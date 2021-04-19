@@ -47,22 +47,65 @@ class ViewController: UIViewController {
     
     @IBAction func refreshAction(_ sender: Any) {
         load()
-        
     }
     
     @IBAction func deleteAction(_ sender: Any) {
         heroes?.removeAll()
         filteredHeroes?.removeAll()
+        
+//        let heroesData = realm.objects(HeroData.self)
+//        for heroData in heroesData {
+//            do {
+//                try realm.write {
+//                    realm.delete(heroData)
+//                }
+//            } catch let error {
+//                print("error - \(error.localizedDescription)")
+//            }
+//        }
+//
         heroCollectionView.reloadData()
     }
+    
     @IBAction func loadAction(_ sender: Any) {
-//        let heroesData = realm.objects([Hero].self)
-//        heroCollectionView.re
-        let heroesData = realm.objects(HeroData.self)
+        loadDataRealm()
+    }
+    
+    @IBAction func saveAction(_ sender: Any) {
+//        print("start save")
+//        guard let heroes = heroes else { return }
+//        saveToRealm(heroes: heroes)
         
+            heroes?.removeAll()
+            filteredHeroes?.removeAll()
+            
+            let heroesData = realm.objects(HeroData.self)
+            for heroData in heroesData {
+                do {
+                    try realm.write {
+                        realm.delete(heroData)
+                    }
+                } catch let error {
+                    print("error - \(error.localizedDescription)")
+                }
+            }
+    
+            heroCollectionView.reloadData()
+    }
+    
+    func showAlert(title: String, message: String?) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func loadDataRealm() {
         heroes?.removeAll()
         filteredHeroes?.removeAll()
-//        guard let heroes = heroes else { return }
+        
+        let heroesData = realm.objects(HeroData.self)
+        
+        var tempHeroes = [Hero]()
         
         for heroData in heroesData {
             var hero = Hero()
@@ -83,33 +126,16 @@ class ViewController: UIViewController {
             hero.imageData = heroData.imageData
             hero.isImageLoaded = heroData.isImageLoaded
             
-            heroes?.append(hero)
+            tempHeroes.append(hero)
         }
         
-        filteredHeroes = heroes
+        heroes = tempHeroes
+        filteredHeroes = tempHeroes
         heroCollectionView.reloadData()
     }
     
-    @IBAction func saveAction(_ sender: Any) {
-        print("start save")
-        guard let heroes = heroes else { return }
-        saveToRealm(heroes: heroes)
-    }
-    
-    func showAlert(title: String, message: String?) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    func saveHeroes(heroes: [Hero]) {
-//        let jsonData = try! JSONEncoder().encode(heroes)
-//        let jsonString = String(data: jsonData, encoding: .utf8)
-//        print(jsonString)
-    }
-    
-    func saveToRealm(heroes: [Hero]) {
-        for hero in heroes {
+    func saveToRealm(_ hero: Hero) {
+//        for hero in heroes {
             let heroData = HeroData()
             heroData.id = hero.id
             heroData.localizedName = hero.localizedName
@@ -126,6 +152,7 @@ class ViewController: UIViewController {
             heroData.moveSpeed = hero.moveSpeed
             heroData.imageData = hero.imageData ?? Data()
             heroData.isImageLoaded = hero.isImageLoaded
+            
             do {
                 try realm.write {
                     realm.add(heroData)
@@ -133,46 +160,57 @@ class ViewController: UIViewController {
             } catch {
                 print("error save context : \(error)")
             }
-        }
+//        }
     }
     
     //MARK: - load data
     func load() {
 //        isLoading = true
-        Networking.shared.getData(from: "https://api.opendota.com/api/herostats") { (result: Result<[Hero],NetworkError>) in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let data) :
-                    self.heroes = data
-                    
-                    if !(self.heroes?.isEmpty ?? true) {
-                        for i in 0 ..< (self.heroes?.count ?? 0) {
-                            let imageURL = "https://api.opendota.com\(self.heroes?[i].img ?? "")"
-                            self.getImageData(urlString: imageURL) { (data) in
-                                self.heroes?[i].imageData = data
-                                self.heroes?[i].isImageLoaded = true
-                                
-                                self.filteredHeroes = self.heroes
-                                
-                                DispatchQueue.main.async {
-                                    self.heroCollectionView.reloadData()
+//        heroes?.removeAll()
+//        filteredHeroes?.removeAll()
+        
+        loadDataRealm()
+        
+//        guard let filteredHeroes = filteredHeroes else { return }
+        if filteredHeroes ==  nil || filteredHeroes?.count == 0 {
+            Networking.shared.getData(from: "https://api.opendota.com/api/herostats") { (result: Result<[Hero],NetworkError>) in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let data) :
+                        self.heroes = data
+                        
+                        if !(self.heroes?.isEmpty ?? true) {
+                            for i in 0 ..< (self.heroes?.count ?? 0) {
+                                let imageURL = "https://api.opendota.com\(self.heroes?[i].img ?? "")"
+                                self.getImageData(urlString: imageURL) { (data) in
+                                    self.heroes?[i].imageData = data
+                                    self.heroes?[i].isImageLoaded = true
+                                    
+                                    self.filteredHeroes = self.heroes
+                                    
+                                    DispatchQueue.main.async {
+                                        if let hero = self.heroes?[i] {
+                                            self.saveToRealm(hero)
+                                        }
+                                    
+                                        self.heroCollectionView.reloadData()
+                                    }
                                 }
                             }
                         }
+                        
+                    //                    self.isLoading = false
+                    case .failure(let error) :
+                        switch error {
+                        case .badUrl:
+                            break
+                        case .decodingError:
+                            self.showAlert(title: "Error", message: "cannot fetch data.")
+                        case .noData:
+                            self.showAlert(title: "Error", message: "Cannot fetch data. Please check your network connection.")
+                        }
+                        print(error.localizedDescription)
                     }
-                    
-//                    self.isLoading = false
-//                    self.showAlert()
-                case .failure(let error) :
-                    switch error {
-                    case .badUrl:
-                        break
-                    case .decodingError:
-                        self.showAlert(title: "Error", message: "cannot fetch data.")
-                    case .noData:
-                        self.showAlert(title: "Error", message: "Cannot fetch data. Please check your network connection.")
-                    }
-                    print(error.localizedDescription)
                 }
             }
         }
@@ -183,9 +221,9 @@ class ViewController: UIViewController {
             URLSession.shared.dataTask(with: url) { data, response, error in
                 guard let data = data, error == nil else { return }
                 
-                DispatchQueue.main.async { // execute on main thread
+//                DispatchQueue.main.async {
                     completion(data)
-                }
+//                }
             }.resume()
         }
     }
@@ -268,7 +306,6 @@ class ViewController: UIViewController {
 
 //MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case roleCollectionView:
