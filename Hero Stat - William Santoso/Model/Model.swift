@@ -24,22 +24,21 @@ struct Hero: Codable {
     var id: Int
     var localizedName: String
     var primaryAttr: PrimaryAttr
-    var attackType: AttackType
     var roles: [Role]
-    var img, icon: String
+    var img: String
     var baseHealth: Int
     var baseMana: Int
     var baseArmor: Double
     var baseAttackMin, baseAttackMax: Int
     var moveSpeed: Int
     var imageData: Data?
+    var isImageLoaded: Bool = false
 
     enum CodingKeys: String, CodingKey {
         case id
         case localizedName = "localized_name"
         case primaryAttr = "primary_attr"
-        case attackType = "attack_type"
-        case roles, img, icon
+        case roles, img
         case baseHealth = "base_health"
         case baseMana = "base_mana"
         case baseArmor = "base_armor"
@@ -47,11 +46,6 @@ struct Hero: Codable {
         case baseAttackMax = "base_attack_max"
         case moveSpeed = "move_speed"
     }
-}
-
-enum AttackType: String, Codable {
-    case melee = "Melee"
-    case ranged = "Ranged"
 }
 
 enum PrimaryAttr: String, Codable {

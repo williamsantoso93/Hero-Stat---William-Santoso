@@ -21,6 +21,9 @@ class ViewController: UIViewController {
     var filteredHeroImageData = [Data]()
     var selectedHero:Hero?
     let roleList = Role.list
+    var heroesString = ""
+    
+    var isLoading = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,9 +44,25 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func refreshAction(_ sender: Any) {
+        load()
+    }
+    
+    func showAlert(title: String, message: String?) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func saveHeroes(heroes: [Hero]) {
+        let jsonData = try! JSONEncoder().encode(heroes)
+        let jsonString = String(data: jsonData, encoding: .utf8)
+        print(jsonString)
+    }
     
     //MARK: - load data
     func load() {
+//        isLoading = true
         Networking.shared.getData(from: "https://api.opendota.com/api/herostats") { (result: Result<[Hero],NetworkError>) in
             DispatchQueue.main.async {
                 switch result {
@@ -54,15 +73,28 @@ class ViewController: UIViewController {
                     for i in 0 ..< (self.heroes?.count ?? 0) {
                         let imageURL = "https://api.opendota.com\(self.heroes?[i].img ?? "")"
                         self.getImageData(urlString: imageURL) { (data) in
-                            DispatchQueue.main.async {
-                                self.heroes?[i].imageData = data
-                                
-                                self.filteredHeroes = self.heroes
-                                self.heroCollectionView.reloadData()
-                            }
+                            self.heroes?[i].imageData = data
+                            self.heroes?[i].isImageLoaded = true
+                            
+                            self.filteredHeroes = self.heroes
                         }
                     }
+                    
+                    DispatchQueue.main.async {
+                        self.heroCollectionView.reloadData()
+                    }
+                    
+//                    self.isLoading = false
+//                    self.showAlert()
                 case .failure(let error) :
+                    switch error {
+                    case .badUrl:
+                        print(1)
+                    case .decodingError:
+                        self.showAlert(title: "Error", message: "cannot fetch data.")
+                    case .noData:
+                        self.showAlert(title: "Error", message: "Cannot fetch data. Please check your network connection.")
+                    }
                     print(error.localizedDescription)
                 }
             }
@@ -157,6 +189,7 @@ class ViewController: UIViewController {
 
 //MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case roleCollectionView:
@@ -184,6 +217,10 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
                 if let imageData = hero.imageData {
                     cell.imageView.image = UIImage(data: imageData)
                 }
+                
+                if hero.isImageLoaded {
+                    cell.indicatorView.stopAnimating()
+                }
             }
             
             return cell
@@ -198,15 +235,16 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
             switch collectionView {
             case roleCollectionView:
                 self.title = roleList[indexPath.row]
+                filteredHeroes?.removeAll()
                 if roleList[indexPath.row] == "All" {
                     filteredHeroes = heroes
                 } else {
                     let selectedRole = Role(rawValue: roleList[indexPath.row]) ?? .carry
                     filteredHeroes = getfilterHeroes(by: selectedRole)
                 }
-                DispatchQueue.main.async {
+//                DispatchQueue.main.async {
                     self.heroCollectionView.reloadData()
-                }
+//                }
             case heroCollectionView:
                 selectedHero = hero
                 similarHeroes = getThreeHighestHeroes(from: hero)

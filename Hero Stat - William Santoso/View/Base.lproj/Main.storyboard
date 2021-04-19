@@ -64,7 +64,13 @@
                             <constraint firstItem="T8y-Df-Bre" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="vuv-vB-vZp"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="All" id="hw8-2g-Yea"/>
+                    <navigationItem key="navigationItem" title="All" id="hw8-2g-Yea">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="refresh" id="0Os-rx-JEa">
+                            <connections>
+                                <action selector="refreshAction:" destination="BYZ-38-t0r" id="Y2W-fK-Vz4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="heroCollectionView" destination="GUK-HK-gBj" id="wiS-23-OOo"/>
                         <outlet property="roleCollectionView" destination="NR8-oF-LQu" id="uUP-s0-R89"/>
@@ -130,7 +136,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label Label Label Label Label Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bpc-KF-ABq">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label Label Label Label Label Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bpc-KF-ABq">
                                                                 <rect key="frame" x="15" y="20.333333333333371" width="270" height="20.333333333333329"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
