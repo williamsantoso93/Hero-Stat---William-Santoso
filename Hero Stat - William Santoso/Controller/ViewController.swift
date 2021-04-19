@@ -21,8 +21,7 @@ class ViewController: UIViewController {
     let roleList = Role.list
     var heroesString = ""
     
-    var isLoading = false
-    
+    //MARK: - Realm Variable
     let realm: Realm = try! Realm()
     var realmHero: Results<HeroData>?
     
@@ -45,60 +44,72 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func refreshAction(_ sender: Any) {
-        load()
-    }
-    
-    @IBAction func deleteAction(_ sender: Any) {
-        heroes?.removeAll()
-        filteredHeroes?.removeAll()
-        
-//        let heroesData = realm.objects(HeroData.self)
-//        for heroData in heroesData {
-//            do {
-//                try realm.write {
-//                    realm.delete(heroData)
-//                }
-//            } catch let error {
-//                print("error - \(error.localizedDescription)")
-//            }
-//        }
-//
-        heroCollectionView.reloadData()
-    }
-    
-    @IBAction func loadAction(_ sender: Any) {
-        loadDataRealm()
-    }
-    
-    @IBAction func saveAction(_ sender: Any) {
-//        print("start save")
-//        guard let heroes = heroes else { return }
-//        saveToRealm(heroes: heroes)
-        
-            heroes?.removeAll()
-            filteredHeroes?.removeAll()
-            
-            let heroesData = realm.objects(HeroData.self)
-            for heroData in heroesData {
-                do {
-                    try realm.write {
-                        realm.delete(heroData)
-                    }
-                } catch let error {
-                    print("error - \(error.localizedDescription)")
-                }
-            }
-    
-            heroCollectionView.reloadData()
-    }
-    
     func showAlert(title: String, message: String?) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
     
+    //MARK: - load data
+    func load() {
+        loadDataRealm()
+        
+        if filteredHeroes ==  nil || filteredHeroes?.count == 0 {
+            Networking.shared.getData(from: "https://api.opendota.com/api/herostats") { (result: Result<[Hero],NetworkError>) in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let data) :
+                        self.heroes = data
+                        
+                        if !(self.heroes?.isEmpty ?? true) {
+                            for i in 0 ..< (self.heroes?.count ?? 0) {
+                                let imageURL = "https://api.opendota.com\(self.heroes?[i].img ?? "")"
+                                self.getImageData(urlString: imageURL) { (data) in
+                                    self.heroes?[i].imageData = data
+                                    self.heroes?[i].isImageLoaded = true
+                                    
+                                    self.filteredHeroes = self.heroes
+                                    
+                                    DispatchQueue.main.async {
+                                        if let hero = self.heroes?[i] {
+                                            self.saveToRealm(hero)
+                                        }
+                                    
+                                        self.heroCollectionView.reloadData()
+                                    }
+                                }
+                            }
+                        }
+                        
+                    case .failure(let error) :
+                        switch error {
+                        case .badUrl:
+                            break
+                        case .decodingError:
+                            self.showAlert(title: "Error", message: "cannot fetch data.")
+                        case .noData:
+                            self.showAlert(title: "Error", message: "Cannot fetch data. Please check your network connection.")
+                        }
+                        print(error.localizedDescription)
+                    }
+                }
+            }
+        }
+    }
+    
+    func getImageData(urlString: String, completion: @escaping (Data) -> Void) {
+        if let url = URL(string: urlString) {
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                guard let data = data, error == nil else { return }
+                
+//                DispatchQueue.main.async {
+                    completion(data)
+//                }
+            }.resume()
+        }
+    }
+    
+    //MARK: - Realm
     func loadDataRealm() {
         heroes?.removeAll()
         filteredHeroes?.removeAll()
@@ -135,96 +146,29 @@ class ViewController: UIViewController {
     }
     
     func saveToRealm(_ hero: Hero) {
-//        for hero in heroes {
-            let heroData = HeroData()
-            heroData.id = hero.id
-            heroData.localizedName = hero.localizedName
-            heroData.primaryAttr = hero.primaryAttr
-            heroData.img = hero.img
-            for role in hero.roles {
-                heroData.roles.append(role)
-            }
-            heroData.baseHealth = hero.baseHealth
-            heroData.baseMana = hero.baseMana
-            heroData.baseAttackMin = hero.baseAttackMin
-            heroData.baseAttackMax = hero.baseAttackMax
-            heroData.moveSpeed = hero.moveSpeed
-            heroData.moveSpeed = hero.moveSpeed
-            heroData.imageData = hero.imageData ?? Data()
-            heroData.isImageLoaded = hero.isImageLoaded
-            
-            do {
-                try realm.write {
-                    realm.add(heroData)
-                }
-            } catch {
-                print("error save context : \(error)")
-            }
-//        }
-    }
-    
-    //MARK: - load data
-    func load() {
-//        isLoading = true
-//        heroes?.removeAll()
-//        filteredHeroes?.removeAll()
-        
-        loadDataRealm()
-        
-//        guard let filteredHeroes = filteredHeroes else { return }
-        if filteredHeroes ==  nil || filteredHeroes?.count == 0 {
-            Networking.shared.getData(from: "https://api.opendota.com/api/herostats") { (result: Result<[Hero],NetworkError>) in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let data) :
-                        self.heroes = data
-                        
-                        if !(self.heroes?.isEmpty ?? true) {
-                            for i in 0 ..< (self.heroes?.count ?? 0) {
-                                let imageURL = "https://api.opendota.com\(self.heroes?[i].img ?? "")"
-                                self.getImageData(urlString: imageURL) { (data) in
-                                    self.heroes?[i].imageData = data
-                                    self.heroes?[i].isImageLoaded = true
-                                    
-                                    self.filteredHeroes = self.heroes
-                                    
-                                    DispatchQueue.main.async {
-                                        if let hero = self.heroes?[i] {
-                                            self.saveToRealm(hero)
-                                        }
-                                    
-                                        self.heroCollectionView.reloadData()
-                                    }
-                                }
-                            }
-                        }
-                        
-                    //                    self.isLoading = false
-                    case .failure(let error) :
-                        switch error {
-                        case .badUrl:
-                            break
-                        case .decodingError:
-                            self.showAlert(title: "Error", message: "cannot fetch data.")
-                        case .noData:
-                            self.showAlert(title: "Error", message: "Cannot fetch data. Please check your network connection.")
-                        }
-                        print(error.localizedDescription)
-                    }
-                }
-            }
+        let heroData = HeroData()
+        heroData.id = hero.id
+        heroData.localizedName = hero.localizedName
+        heroData.primaryAttr = hero.primaryAttr
+        heroData.img = hero.img
+        for role in hero.roles {
+            heroData.roles.append(role)
         }
-    }
-    
-    func getImageData(urlString: String, completion: @escaping (Data) -> Void) {
-        if let url = URL(string: urlString) {
-            URLSession.shared.dataTask(with: url) { data, response, error in
-                guard let data = data, error == nil else { return }
-                
-//                DispatchQueue.main.async {
-                    completion(data)
-//                }
-            }.resume()
+        heroData.baseHealth = hero.baseHealth
+        heroData.baseMana = hero.baseMana
+        heroData.baseAttackMin = hero.baseAttackMin
+        heroData.baseAttackMax = hero.baseAttackMax
+        heroData.moveSpeed = hero.moveSpeed
+        heroData.moveSpeed = hero.moveSpeed
+        heroData.imageData = hero.imageData ?? Data()
+        heroData.isImageLoaded = hero.isImageLoaded
+        
+        do {
+            try realm.write {
+                realm.add(heroData)
+            }
+        } catch {
+            print("error save context : \(error)")
         }
     }
     
@@ -358,9 +302,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
                     let selectedRole = roleList[indexPath.row]
                     filteredHeroes = getfilterHeroes(by: selectedRole)
                 }
-//                DispatchQueue.main.async {
-                    self.heroCollectionView.reloadData()
-//                }
+                self.heroCollectionView.reloadData()
             case heroCollectionView:
                 selectedHero = hero
                 similarHeroes = getThreeHighestHeroes(from: hero)
