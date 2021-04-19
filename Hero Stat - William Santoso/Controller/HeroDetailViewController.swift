@@ -1,5 +1,5 @@
 //
-//  DetailHeroViewController.swift
+//  HeroDetailViewController.swift
 //  Hero Stat - William Santoso
 //
 //  Created by William Santoso on 18/04/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailHeroViewController: UIViewController {
+class HeroDetailViewController: UIViewController {
 
     @IBOutlet weak var heroImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -25,6 +25,7 @@ class DetailHeroViewController: UIViewController {
     
     
     var hero: Hero?
+    var similarHeroes: [Hero]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,21 +35,15 @@ class DetailHeroViewController: UIViewController {
         
         self.title = hero.localizedName
         
-//        let urlImage = URL(string: "https://api.opendota.com\(hero.img)")!
-//        heroImageView.load(url: urlImage)
         if let imageData = hero.imageData {
             heroImageView.image = UIImage(data: imageData)
-            
-            similarHero1ImageView.image = UIImage(data: imageData)
-            similarHero2ImageView.image = UIImage(data: imageData)
-            similarHero3ImageView.image = UIImage(data: imageData)
         }
         nameLabel.text = hero.localizedName
         minMaxAttackLabel.text = "\(hero.baseAttackMin) - \(hero.baseAttackMax)"
         armorLabel.text = "\(hero.baseArmor)"
         speedLabel.text = "\(hero.moveSpeed)"
         manaLabel.text = "\(hero.baseMana)"
-        typeLabel.text = "\(hero.attackType.rawValue)"
+        typeLabel.text = "\(hero.primaryAttr.rawValue)"
         
         var tempRole = ""
         for role in hero.roles {
@@ -57,6 +52,20 @@ class DetailHeroViewController: UIViewController {
         roleLabel.text = String(tempRole.dropLast(2))
         
         typeImageView.image = UIImage(named: "type-\(hero.primaryAttr.rawValue)")
+        
+        if let similarHeroes = similarHeroes {
+            if similarHeroes.count >= 3 {
+                if let imageData = similarHeroes[0].imageData {
+                    similarHero1ImageView.image = UIImage(data: imageData)
+                }
+                if let imageData = similarHeroes[1].imageData {
+                    similarHero2ImageView.image = UIImage(data: imageData)
+                }
+                if let imageData = similarHeroes[2].imageData {
+                    similarHero3ImageView.image = UIImage(data: imageData)
+                }
+            }
+        }
     }
     
 

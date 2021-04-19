@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7A67A96A262C9BE20021BF48 /* DetailHeroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A67A969262C9BE20021BF48 /* DetailHeroViewController.swift */; };
+		7A67A96A262C9BE20021BF48 /* HeroDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A67A969262C9BE20021BF48 /* HeroDetailViewController.swift */; };
 		7AE204FC262C829C0002B233 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE204FB262C829C0002B233 /* AppDelegate.swift */; };
 		7AE204FE262C829C0002B233 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE204FD262C829C0002B233 /* SceneDelegate.swift */; };
 		7AE20500262C829C0002B233 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE204FF262C829C0002B233 /* ViewController.swift */; };
@@ -24,7 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7A67A969262C9BE20021BF48 /* DetailHeroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeroViewController.swift; sourceTree = "<group>"; };
+		7A67A969262C9BE20021BF48 /* HeroDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailViewController.swift; sourceTree = "<group>"; };
 		7AE204F8262C829C0002B233 /* Hero Stat - William Santoso.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hero Stat - William Santoso.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AE204FB262C829C0002B233 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AE204FD262C829C0002B233 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,7 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				7AE204FF262C829C0002B233 /* ViewController.swift */,
-				7A67A969262C9BE20021BF48 /* DetailHeroViewController.swift */,
+				7A67A969262C9BE20021BF48 /* HeroDetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -215,7 +215,7 @@
 				7AE20500262C829C0002B233 /* ViewController.swift in Sources */,
 				7AE204FC262C829C0002B233 /* AppDelegate.swift in Sources */,
 				7AE2051B262C87560002B233 /* Extension.swift in Sources */,
-				7A67A96A262C9BE20021BF48 /* DetailHeroViewController.swift in Sources */,
+				7A67A96A262C9BE20021BF48 /* HeroDetailViewController.swift in Sources */,
 				7AE20528262C8FBF0002B233 /* HeroCardCollectionViewCell.swift in Sources */,
 				7AE204FE262C829C0002B233 /* SceneDelegate.swift in Sources */,
 				7AE20514262C82FB0002B233 /* Networking.swift in Sources */,

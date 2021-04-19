@@ -61,7 +61,6 @@ enum PrimaryAttr: String, Codable {
 }
 
 enum Role: String, Codable, CaseIterable {
-    case all = "All"
     case carry = "Carry"
     case disabler = "Disabler"
     case durable = "Durable"
@@ -71,6 +70,7 @@ enum Role: String, Codable, CaseIterable {
     case nuker = "Nuker"
     case pusher = "Pusher"
     case support = "Support"
+    case all = "All"
     
     static var list: [String] {
       return Role.allCases.map { $0.rawValue }
