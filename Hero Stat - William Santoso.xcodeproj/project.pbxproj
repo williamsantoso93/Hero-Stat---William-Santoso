@@ -7,15 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A67A96A262C9BE20021BF48 /* DetailHeroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A67A969262C9BE20021BF48 /* DetailHeroViewController.swift */; };
 		7AE204FC262C829C0002B233 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE204FB262C829C0002B233 /* AppDelegate.swift */; };
 		7AE204FE262C829C0002B233 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE204FD262C829C0002B233 /* SceneDelegate.swift */; };
 		7AE20500262C829C0002B233 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE204FF262C829C0002B233 /* ViewController.swift */; };
 		7AE20503262C829C0002B233 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AE20501262C829C0002B233 /* Main.storyboard */; };
 		7AE20505262C829E0002B233 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AE20504262C829E0002B233 /* Assets.xcassets */; };
 		7AE20508262C829E0002B233 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AE20506262C829E0002B233 /* LaunchScreen.storyboard */; };
+		7AE20514262C82FB0002B233 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE20513262C82FB0002B233 /* Networking.swift */; };
+		7AE20518262C83F50002B233 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE20517262C83F50002B233 /* Model.swift */; };
+		7AE2051B262C87560002B233 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE2051A262C87560002B233 /* Extension.swift */; };
+		7AE20522262C8F920002B233 /* RoleCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE20520262C8F920002B233 /* RoleCardCollectionViewCell.swift */; };
+		7AE20523262C8F920002B233 /* RoleCardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AE20521262C8F920002B233 /* RoleCardCollectionViewCell.xib */; };
+		7AE20528262C8FBF0002B233 /* HeroCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE20526262C8FBF0002B233 /* HeroCardCollectionViewCell.swift */; };
+		7AE20529262C8FBF0002B233 /* HeroCardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AE20527262C8FBF0002B233 /* HeroCardCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7A67A969262C9BE20021BF48 /* DetailHeroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeroViewController.swift; sourceTree = "<group>"; };
 		7AE204F8262C829C0002B233 /* Hero Stat - William Santoso.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hero Stat - William Santoso.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AE204FB262C829C0002B233 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AE204FD262C829C0002B233 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +33,13 @@
 		7AE20504262C829E0002B233 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7AE20507262C829E0002B233 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7AE20509262C829E0002B233 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7AE20513262C82FB0002B233 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		7AE20517262C83F50002B233 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		7AE2051A262C87560002B233 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		7AE20520262C8F920002B233 /* RoleCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleCardCollectionViewCell.swift; sourceTree = "<group>"; };
+		7AE20521262C8F920002B233 /* RoleCardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoleCardCollectionViewCell.xib; sourceTree = "<group>"; };
+		7AE20526262C8FBF0002B233 /* HeroCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroCardCollectionViewCell.swift; sourceTree = "<group>"; };
+		7AE20527262C8FBF0002B233 /* HeroCardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeroCardCollectionViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +53,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A67A963262C94EB0021BF48 /* Hero Card View */ = {
+			isa = PBXGroup;
+			children = (
+				7AE20526262C8FBF0002B233 /* HeroCardCollectionViewCell.swift */,
+				7AE20527262C8FBF0002B233 /* HeroCardCollectionViewCell.xib */,
+			);
+			name = "Hero Card View";
+			sourceTree = "<group>";
+		};
+		7A67A964262C94FA0021BF48 /* Role Card View */ = {
+			isa = PBXGroup;
+			children = (
+				7AE20520262C8F920002B233 /* RoleCardCollectionViewCell.swift */,
+				7AE20521262C8F920002B233 /* RoleCardCollectionViewCell.xib */,
+			);
+			name = "Role Card View";
+			sourceTree = "<group>";
+		};
+		7A67A967262C9BBE0021BF48 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7AE204FF262C829C0002B233 /* ViewController.swift */,
+				7A67A969262C9BE20021BF48 /* DetailHeroViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		7AE204EF262C829C0002B233 = {
 			isa = PBXGroup;
 			children = (
@@ -58,13 +101,42 @@
 			children = (
 				7AE204FB262C829C0002B233 /* AppDelegate.swift */,
 				7AE204FD262C829C0002B233 /* SceneDelegate.swift */,
-				7AE204FF262C829C0002B233 /* ViewController.swift */,
-				7AE20501262C829C0002B233 /* Main.storyboard */,
+				7AE20512262C82E80002B233 /* Resources */,
+				7AE20511262C82DC0002B233 /* Model */,
+				7AE20510262C82D80002B233 /* View */,
+				7A67A967262C9BBE0021BF48 /* Controller */,
 				7AE20504262C829E0002B233 /* Assets.xcassets */,
 				7AE20506262C829E0002B233 /* LaunchScreen.storyboard */,
 				7AE20509262C829E0002B233 /* Info.plist */,
 			);
 			path = "Hero Stat - William Santoso";
+			sourceTree = "<group>";
+		};
+		7AE20510262C82D80002B233 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7A67A963262C94EB0021BF48 /* Hero Card View */,
+				7A67A964262C94FA0021BF48 /* Role Card View */,
+				7AE20501262C829C0002B233 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7AE20511262C82DC0002B233 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7AE20517262C83F50002B233 /* Model.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		7AE20512262C82E80002B233 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7AE20513262C82FB0002B233 /* Networking.swift */,
+				7AE2051A262C87560002B233 /* Extension.swift */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,7 +198,9 @@
 			files = (
 				7AE20508262C829E0002B233 /* LaunchScreen.storyboard in Resources */,
 				7AE20505262C829E0002B233 /* Assets.xcassets in Resources */,
+				7AE20523262C8F920002B233 /* RoleCardCollectionViewCell.xib in Resources */,
 				7AE20503262C829C0002B233 /* Main.storyboard in Resources */,
+				7AE20529262C8FBF0002B233 /* HeroCardCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,9 +211,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AE20518262C83F50002B233 /* Model.swift in Sources */,
 				7AE20500262C829C0002B233 /* ViewController.swift in Sources */,
 				7AE204FC262C829C0002B233 /* AppDelegate.swift in Sources */,
+				7AE2051B262C87560002B233 /* Extension.swift in Sources */,
+				7A67A96A262C9BE20021BF48 /* DetailHeroViewController.swift in Sources */,
+				7AE20528262C8FBF0002B233 /* HeroCardCollectionViewCell.swift in Sources */,
 				7AE204FE262C829C0002B233 /* SceneDelegate.swift in Sources */,
+				7AE20514262C82FB0002B233 /* Networking.swift in Sources */,
+				7AE20522262C8F920002B233 /* RoleCardCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
