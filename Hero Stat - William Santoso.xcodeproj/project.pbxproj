@@ -3,13 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		7A67A96A262C9BE20021BF48 /* HeroDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A67A969262C9BE20021BF48 /* HeroDetailViewController.swift */; };
-		7ADA92DC262D835A00C2341B /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 7ADA92DB262D835A00C2341B /* Realm */; };
-		7ADA92DE262D835A00C2341B /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7ADA92DD262D835A00C2341B /* RealmSwift */; };
 		7ADA92E1262D83A200C2341B /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADA92E0262D83A200C2341B /* RealmModel.swift */; };
 		7AE204FC262C829C0002B233 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE204FB262C829C0002B233 /* AppDelegate.swift */; };
 		7AE204FE262C829C0002B233 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE204FD262C829C0002B233 /* SceneDelegate.swift */; };
@@ -24,6 +22,7 @@
 		7AE20523262C8F920002B233 /* RoleCardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AE20521262C8F920002B233 /* RoleCardCollectionViewCell.xib */; };
 		7AE20528262C8FBF0002B233 /* HeroCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE20526262C8FBF0002B233 /* HeroCardCollectionViewCell.swift */; };
 		7AE20529262C8FBF0002B233 /* HeroCardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AE20527262C8FBF0002B233 /* HeroCardCollectionViewCell.xib */; };
+		89D8CCAC684833AED00723DC /* Pods_Hero_Stat___William_Santoso.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF7EACDAF884C2654D241ED /* Pods_Hero_Stat___William_Santoso.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +43,9 @@
 		7AE20521262C8F920002B233 /* RoleCardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoleCardCollectionViewCell.xib; sourceTree = "<group>"; };
 		7AE20526262C8FBF0002B233 /* HeroCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		7AE20527262C8FBF0002B233 /* HeroCardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeroCardCollectionViewCell.xib; sourceTree = "<group>"; };
+		BE3C8454FC8A9320577C9B5D /* Pods-Hero Stat - William Santoso.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hero Stat - William Santoso.debug.xcconfig"; path = "Target Support Files/Pods-Hero Stat - William Santoso/Pods-Hero Stat - William Santoso.debug.xcconfig"; sourceTree = "<group>"; };
+		CCF7EACDAF884C2654D241ED /* Pods_Hero_Stat___William_Santoso.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hero_Stat___William_Santoso.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9A48CAEF35779F169E04F18 /* Pods-Hero Stat - William Santoso.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hero Stat - William Santoso.release.xcconfig"; path = "Target Support Files/Pods-Hero Stat - William Santoso/Pods-Hero Stat - William Santoso.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,14 +53,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7ADA92DE262D835A00C2341B /* RealmSwift in Frameworks */,
-				7ADA92DC262D835A00C2341B /* Realm in Frameworks */,
+				89D8CCAC684833AED00723DC /* Pods_Hero_Stat___William_Santoso.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5E0020DA5DB853AF881ADA40 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BE3C8454FC8A9320577C9B5D /* Pods-Hero Stat - William Santoso.debug.xcconfig */,
+				D9A48CAEF35779F169E04F18 /* Pods-Hero Stat - William Santoso.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		7A67A963262C94EB0021BF48 /* Hero Card View */ = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +102,8 @@
 			children = (
 				7AE204FA262C829C0002B233 /* Hero Stat - William Santoso */,
 				7AE204F9262C829C0002B233 /* Products */,
+				5E0020DA5DB853AF881ADA40 /* Pods */,
+				9B5AD4182CCD26489AD6DEB7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -146,6 +159,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		9B5AD4182CCD26489AD6DEB7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CCF7EACDAF884C2654D241ED /* Pods_Hero_Stat___William_Santoso.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -153,19 +174,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7AE2050C262C829E0002B233 /* Build configuration list for PBXNativeTarget "Hero Stat - William Santoso" */;
 			buildPhases = (
+				02345F55BAEBEA75A721BE91 /* [CP] Check Pods Manifest.lock */,
 				7AE204F4262C829C0002B233 /* Sources */,
 				7AE204F5262C829C0002B233 /* Frameworks */,
 				7AE204F6262C829C0002B233 /* Resources */,
+				042602F6D5ADD15D41D81260 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "Hero Stat - William Santoso";
-			packageProductDependencies = (
-				7ADA92DB262D835A00C2341B /* Realm */,
-				7ADA92DD262D835A00C2341B /* RealmSwift */,
-			);
 			productName = "Hero Stat - William Santoso";
 			productReference = 7AE204F8262C829C0002B233 /* Hero Stat - William Santoso.app */;
 			productType = "com.apple.product-type.application";
@@ -193,9 +212,6 @@
 				Base,
 			);
 			mainGroup = 7AE204EF262C829C0002B233;
-			packageReferences = (
-				7ADA92DA262D835A00C2341B /* XCRemoteSwiftPackageReference "realm-cocoa" */,
-			);
 			productRefGroup = 7AE204F9262C829C0002B233 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -219,6 +235,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		02345F55BAEBEA75A721BE91 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Hero Stat - William Santoso-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		042602F6D5ADD15D41D81260 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Hero Stat - William Santoso/Pods-Hero Stat - William Santoso-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Hero Stat - William Santoso/Pods-Hero Stat - William Santoso-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Hero Stat - William Santoso/Pods-Hero Stat - William Santoso-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7AE204F4262C829C0002B233 /* Sources */ = {
@@ -311,7 +369,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -366,7 +424,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -378,6 +436,7 @@
 		};
 		7AE2050D262C829E0002B233 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE3C8454FC8A9320577C9B5D /* Pods-Hero Stat - William Santoso.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -397,6 +456,7 @@
 		};
 		7AE2050E262C829E0002B233 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D9A48CAEF35779F169E04F18 /* Pods-Hero Stat - William Santoso.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -436,30 +496,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		7ADA92DA262D835A00C2341B /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/realm-cocoa.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.7.2;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		7ADA92DB262D835A00C2341B /* Realm */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7ADA92DA262D835A00C2341B /* XCRemoteSwiftPackageReference "realm-cocoa" */;
-			productName = Realm;
-		};
-		7ADA92DD262D835A00C2341B /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7ADA92DA262D835A00C2341B /* XCRemoteSwiftPackageReference "realm-cocoa" */;
-			productName = RealmSwift;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7AE204F0262C829C0002B233 /* Project object */;
 }
